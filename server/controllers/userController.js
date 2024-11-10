@@ -315,12 +315,8 @@ module.exports.verifyPage_post = async(req, res)=>{
       const {id} = req.params;
       const user = await User.findById(id);
      
-           if (user.verified) {
-                  req.flash('infoSubmit', 'You have applied for verification before')
-                 //  res.location(`/transfer/${id}`)
-                  res.redirect(`/dashboard`);
-              }else{
-                const verification = new Verify({
+           if (user.verified != '') {
+                 const verification = new Verify({
                   fullname: req.body.fullname,
                   email: req.body.email,
                   tel: req.body.tel,
@@ -341,7 +337,11 @@ module.exports.verifyPage_post = async(req, res)=>{
                 req.flash('infoSubmit', 'verification  waiting for approval.')
                 res.redirect('/dashboard')
               }
- 
+                 
+              }else{
+               req.flash('infoSubmit', 'You have applied for verification before')
+                 //  res.location(`/transfer/${id}`)
+                  res.redirect(`/dashboard`);
     }catch(error){
         console.log(error)
     }
