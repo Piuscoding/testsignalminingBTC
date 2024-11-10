@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from benefitprosavings.org/login by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 05 Oct 2024 21:12:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="rKjXcPo1CCVi15gRvP1b2ibUnx96SD04mugBsGB2">
+    <link rel="shortcut icon" href="/backend/images/favicon.png">
+
+    <title>fidelity transact</title>
+
+    <!-- Scripts -->
+    <!-- <script src="/auth/js/app.js" defer></script> -->
+
+    <!-- Google font -->
+	<link rel="preconnect" href="https://fonts.gstatic.com/">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="/auth/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/auth/css/app.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <main class="py-4">
+            <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card card-signin p-3 my-5">
+                <div class="card-body">
+					<img class="logo" src="/uploads/media/logo.jpg">
+
+					<h5 class="text-center py-4">Admin To Your Account</h4>
+
+                    
+                    
+					
+					<form method="POST" class="form-signin" action="/login">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input id="email" type="email" class="form-control" name="email"  placeholder="Email" required >
+                                <span class="email error"></span>
+
+                                                            </div>
+                        </div>
+
+                        <div class="form-group row">
+						    <div class="col-md-12">
+
+								<input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                                <span class="password error"></span>
+
+                                                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row">
+                            <div class="col-md-12">
+                                <input type="hidden" name="g-recaptcha-response" id="recaptcha">
+                                                            </div>
+                        </div> -->
+
+						<div class="text-center">
+							<div class="custom-control custom-checkbox mb-3">
+								<input type="checkbox" name="remember" class="custom-control-input" id="remember" >
+								<label class="custom-control-label" for="remember">Remember Me</label>
+							</div>
+						</div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Login
+                                </button>
+
+                                
+                                
+                                								<a class="btn btn-link btn-register" href="/register">
+									Create Account
+								</a>
+                                
+                            </div>
+                        </div>
+
+
+						<div class="form-group row mt-3">
+                            <div class="col-md-12">
+								<a class="btn-link" href="#">
+									Forgot Password?
+								</a>
+							</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const form = document.querySelector('form');
+     const emailError = document.querySelector('.email.error');
+     const passwordError = document.querySelector('.password.error');
+     form.addEventListener('submit', async (e) => {
+       e.preventDefault();
+       // reset errors
+       emailError.textContent = '';
+       passwordError.textContent = '';
+       // get values
+       const email = form.email.value;
+       const password = form.password.value;
+       try {
+         const res = await fetch('/login', { 
+           method: 'POST', 
+           body: JSON.stringify({ email, password }),
+           headers: {'Content-Type': 'application/json'}
+         });
+         const data = await res.json();
+         // console.log(data);
+         if (data.errors) {
+           emailError.textContent = data.errors.email;
+           passwordError.textContent = data.errors.password;
+         }
+         if (data.user) {
+           location.assign('/adminRoute');
+         }
+       }
+       catch (err) {
+         console.log(err);
+       }
+     });
+   
+   
+   </script>
+        </main>
+    </div>
+
+
+	</body>
+
+<!-- Mirrored from benefitprosavings.org/login by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 05 Oct 2024 21:12:52 GMT -->
+</html>
